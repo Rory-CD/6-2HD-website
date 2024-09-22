@@ -4,8 +4,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "fetch the source code from GitHub"
-                echo "compile the code using Maven"
+                // Clone repo
+                echo "Cloning repo..."
+                git 'https://github.com/Rory-CD/6-2HD-website.git'
+
+                // Build docker image
+                echo "Building docker image..."
+                sh 'docker build -t vue-image .'
             }
         }
         stage('Unit and Integration Tests') {
