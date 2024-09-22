@@ -5,8 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Clone repo
-                echo "Cloning repo..."
-                git 'https://github.com/Rory-CD/6-2HD-website.git'
+                // echo "Cloning repo..."
+                // git 'https://github.com/Rory-CD/6-2HD-website.git'
 
                 // Build docker image
                 echo "Building docker image..."
