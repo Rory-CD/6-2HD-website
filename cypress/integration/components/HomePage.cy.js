@@ -1,4 +1,4 @@
-import HomePage from './HomePage.vue'
+import HomePage from '../../../src/components/HomePage.vue'
 
 describe('Homepage', () => {
   it('renders', () => {

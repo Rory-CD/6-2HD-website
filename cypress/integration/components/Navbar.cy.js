@@ -1,4 +1,4 @@
-import Navbar from './Navbar.vue'
+import Navbar from '../../../src/components/Navbar.vue'
 
 describe('Navbar', () => {
   const expectedLinks = ['ACCOMMODATION', 'EAT/DRINK', 'EVENTS', 'AMENITIES', 'OFFERS', 'CONTACT']; // The expected links
