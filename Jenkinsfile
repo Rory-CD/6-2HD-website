@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        COMPOSE_HTTP_TIMEOUT = '200'  // Set to a higher value, e.g., 200 seconds
+    }
 
     stages {
         stage('Build') {

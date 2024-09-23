@@ -14,4 +14,4 @@ services:
       - .:/app
     depends_on:
       - vue-app
-    entrypoint: ["npx", "cypress", "run", "--verbose"]
+    entrypoint: ["npx", "cypress", "run"]
