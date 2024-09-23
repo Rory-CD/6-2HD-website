@@ -23,7 +23,7 @@ pipeline {
                 // sh 'npx cypress run'
                 script {
                     // Run Cypress tests
-                    sh 'docker-compose run --rm cypress'
+                    sh 'docker-compose run --rm cypress --component'
                 }
             }
             post {
