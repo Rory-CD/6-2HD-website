@@ -3,6 +3,12 @@ FROM node:lts-alpine
 # install simple http server for serving static content
 RUN npm install -g http-server
 
+# Debug step to check Node.js, npm, and npx versions
+RUN echo "Checking Node.js, npm, and npx versions..." && \
+    node -v && \
+    npm -v && \
+    npx -v
+
 # make the 'app' folder the current working directory
 WORKDIR /app
 
