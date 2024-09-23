@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+            docker {
+            image 'vue-image:latest' // Replace with your built image name
+            args '-u root' // Use root user to avoid permission issues if necessary
+        }
+    }
 
     stages {
         stage('Build') {
