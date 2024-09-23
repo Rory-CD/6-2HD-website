@@ -13,6 +13,14 @@ pipeline {
                 }
             }
         }
+        stage('Debug') {
+            steps {
+                script {
+                    // Run a command in the Cypress container to list files
+                    sh 'docker-compose run --rm cypress sh -c "ls -la /app"'
+                }
+            }
+        }
         stage('Test') {
             steps {
                 // Run Cypress tests
@@ -84,6 +92,13 @@ pipeline {
             steps {
                 echo "deploy the code to AWS EC2"
             }
+        }
+    }
+
+    post {
+        always {
+            // Clean up after the build, remove images
+            sh 'docker-compose down --rmi all'
         }
     }
 }
