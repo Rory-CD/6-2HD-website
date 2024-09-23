@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  vue-app:
+    build:
+      context: .
+      dockerfile: Dockerfile # Your Dockerfile for the Vue app
+    volumes:
+      - .:/app
+
+  cypress:
+    image: cypress/included:13.14.2
+    volumes:
+      - .:/app
+    depends_on:
+      - vue-app
+    entrypoint: ["npx", "cypress", "run"]

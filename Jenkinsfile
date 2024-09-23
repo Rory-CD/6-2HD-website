@@ -1,30 +1,27 @@
 pipeline {
-    agent {
-            docker {
-            image 'vue-image:latest' // Replace with your built image name
-            args '-u root' // Use root user to avoid permission issues if necessary
-        }
-    }
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                // Clone repo
-                // echo "Cloning repo..."
-                // git branch: 'main', url: 'https://github.com/Rory-CD/6-2HD-website.git'
-
                 // Build docker image
-                echo "Building docker image..."
-                sh 'docker build -t vue-image .'
+                echo "Building docker images..."
+                //sh 'docker build -t vue-image .'
+                script {
+                    // Build the Docker images using Docker Compose
+                    sh 'docker-compose up --build -d vue-app'
+                }
             }
         }
         stage('Test') {
             steps {
-                echo "Testing with Cypress..."
-                // Sleep to ensure Docker container is running
-                sh 'sleep 10'
                 // Run Cypress tests
-                sh 'npx cypress run'
+                echo "Testing with Cypress..."
+                // sh 'npx cypress run'
+                script {
+                    // Run Cypress tests
+                    sh 'docker-compose run --rm cypress'
+                }
             }
             post {
                 success {
