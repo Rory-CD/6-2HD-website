@@ -19,7 +19,7 @@ pipeline {
                 // Sleep to ensure Docker container is running
                 sh 'sleep 10'
                 // Run Cypress tests
-                sh '/usr/local/bin/npx cypress run'
+                sh 'npx cypress run'
             }
             post {
                 success {
