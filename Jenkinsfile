@@ -15,15 +15,11 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'which node'
-                sh 'which npm'
-                sh 'which npx'
-
                 echo "Testing with Cypress..."
                 // Sleep to ensure Docker container is running
                 sh 'sleep 10'
                 // Run Cypress tests
-                sh 'npx cypress run'
+                sh '/usr/local/bin/npx cypress run'
             }
             post {
                 success {
