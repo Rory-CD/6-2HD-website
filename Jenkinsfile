@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Clone repo
                 echo "Cloning repo..."
-                git 'https://github.com/Rory-CD/6-2HD-website.git'
+                git branch: 'main', url: 'https://github.com/Rory-CD/6-2HD-website.git'
 
                 // Build docker image
                 echo "Building docker image..."
