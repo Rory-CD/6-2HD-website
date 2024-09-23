@@ -10,13 +10,7 @@ pipeline {
                 script {
                     // Build the Docker images using Docker Compose
                     sh 'docker-compose up --build -d vue-app'
-                }
-            }
-        }
-        stage('Debug') {
-            steps {
-                script {
-                    // Run a command in the Cypress container to list files
+                    // List files in the Cypress working directory
                     sh 'docker-compose run --rm cypress sh -c "ls -la /app"'
                 }
             }
