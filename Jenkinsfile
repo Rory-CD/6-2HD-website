@@ -13,10 +13,13 @@ pipeline {
                 sh 'docker build -t vue-image .'
             }
         }
-        stage('Unit and Integration Tests') {
+        stage('Test') {
             steps {
-                echo "unit tests with JUnit"
-                echo "integration tests with Cucumber"
+                echo "Testing with Cypress..."
+                // Sleep to ensure Docker container is running
+                sh 'sleep 10'
+                // Run Cypress tests
+                sh 'npx cypress run'
             }
             post {
                 success {
