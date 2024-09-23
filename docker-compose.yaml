@@ -9,7 +9,8 @@ services:
       - .:/app
 
   cypress:
-    image: cypress/included:13.14.2
+    image: cypress/included
+    working_dir: /app
     volumes:
       - .:/app
     depends_on:
