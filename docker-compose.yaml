@@ -12,6 +12,7 @@ services:
     image: cypress/included:13.14.2
     volumes:
       - .:/app
+    working_dir: /app
     depends_on:
       - vue-app
     entrypoint: ["npx", "cypress", "run"]

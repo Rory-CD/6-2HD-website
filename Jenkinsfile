@@ -23,12 +23,7 @@ pipeline {
                 // sh 'npx cypress run'
                 script {
                     // Run Cypress tests
-                        // List files in the current working directory
-                    sh 'docker-compose run --rm cypress sh -c "pwd; ls -la"'
-                    
-                    // Run Cypress tests
-                    sh 'docker-compose run --rm cypress run --verbose'
-                    //sh 'docker-compose run --rm cypress'
+                    sh 'docker-compose run --rm cypress'
                 }
             }
             post {
