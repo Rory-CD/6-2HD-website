@@ -10,8 +10,6 @@ pipeline {
                 script {
                     // Build the Docker images using Docker Compose
                     sh 'docker-compose up --build -d vue-app'
-                    // List files in the Cypress working directory
-                    sh 'docker-compose run --rm cypress sh -c "ls -la /app"'
                 }
             }
         }
