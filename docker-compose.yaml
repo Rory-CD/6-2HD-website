@@ -9,7 +9,7 @@ services:
       - .:/app
 
   cypress:
-    image: cypress/included
+    image: cypress/included:13.14.2
     volumes:
       - .:/app
     depends_on:
