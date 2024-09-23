@@ -1,26 +1,31 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'node:lts-alpine'
+        }
+    }
     stages {
         stage('Build') {
             steps {
-                // Build docker image
-                echo "Building docker images..."
-                //sh 'docker build -t vue-image .'
                 script {
-                    // Build the Docker images using Docker Compose
-                    sh 'docker-compose up --build -d vue-app'
+                    sh 'npm install'
+                    sh 'npm run build'
                 }
             }
         }
         stage('Test') {
+            agent {
+                docker {
+                    image 'cypress/included:13.14.2'
+                }
+            }
             steps {
                 // Run Cypress tests
                 echo "Testing with Cypress..."
                 // sh 'npx cypress run'
                 script {
                     // Run Cypress tests
-                    sh 'docker-compose run --rm cypress'
+                    sh 'npx cypress run'
                 }
             }
             post {
