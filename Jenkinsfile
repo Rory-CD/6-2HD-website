@@ -5,8 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Clone repo
-                echo "Cloning repo..."
-                git branch: 'main', url: 'https://github.com/Rory-CD/6-2HD-website.git'
+                // echo "Cloning repo..."
+                // git branch: 'main', url: 'https://github.com/Rory-CD/6-2HD-website.git'
 
                 // Build docker image
                 echo "Building docker image..."
@@ -15,6 +15,10 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh 'which node'
+                sh 'which npm'
+                sh 'which npx'
+
                 echo "Testing with Cypress..."
                 // Sleep to ensure Docker container is running
                 sh 'sleep 10'
