@@ -33,7 +33,8 @@ pipeline {
                 // echo "Testing with Cypress..."
                 // sh 'npx cypress run'
                 script {
-                    sh 'npm run test:unit'
+                    //sh 'npm run test:unit'
+                    sh 'npx vitest run'
                     // Run Cypress tests
                     // sh 'docker-compose run --rm cypress --component'
                 }
