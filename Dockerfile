@@ -7,7 +7,8 @@ RUN npm install -g http-server
 RUN echo "Checking Node.js, npm, and npx versions..." && \
     node -v && \
     npm -v && \
-    npx -v
+    npx -v && \
+    which npx
 
 # make the 'app' folder the current working directory
 WORKDIR /app
