@@ -6,21 +6,6 @@ services:
     volumes:
       - .:/app
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    privileged: true
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "8080:8080"
-
-  docker:
-    image: docker:19.03.12-dind
-    privileged: true
-    volumes:
-      - docker_data:/var/lib/docker
-
   cypress:
     image: cypress/included:13.14.2
     volumes:
@@ -29,7 +14,3 @@ services:
     depends_on:
       - vue-app
     entrypoint: ["npx", "cypress", "run"]
-
-  volumes:
-    jenkins_home:
-    docker_data:

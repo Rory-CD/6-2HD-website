@@ -12,7 +12,7 @@ pipeline {
                 //sh 'docker build -t vue-image .'
                 script {
                     // Build the Docker images using Docker Compose
-                    sh 'sudo docker-compose up --build -d vue-app'
+                    sh 'docker-compose up --build -d vue-app'
                 }
             }
         }
