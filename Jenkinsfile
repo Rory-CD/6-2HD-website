@@ -10,6 +10,8 @@ pipeline {
                 sh 'npm install'
                 sh 'chmod +x ./node_modules/.bin/vite'
                 sh 'chmod +x ./node_modules/.bin/vitest'
+                // Confirm vitest is installed
+                sh 'ls node_modules/vitest'
             }
         }
         stage('Build') {
