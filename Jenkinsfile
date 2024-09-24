@@ -5,16 +5,11 @@ pipeline {
     }
 
     stages {
-        stage('Clean Workspace') {
-            steps {
-                cleanWs()
-            }
-        }       
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
-                sh 'chmod +x ./node_modules/.bin/vite'
-                sh 'chmod +x ./node_modules/.bin/vitest'
+                sh 'npm install --unsafe-perm'
+                //sh 'chmod +x ./node_modules/.bin/vite'
+                //sh 'chmod +x ./node_modules/.bin/vitest'
             }
         }
         stage('Build') {
