@@ -19,11 +19,12 @@ pipeline {
         stage('Test') {
             steps {
                 // Run Cypress tests
-                echo "Testing with Cypress..."
+                // echo "Testing with Cypress..."
                 // sh 'npx cypress run'
                 script {
+                    sh 'npm run test:unit'
                     // Run Cypress tests
-                    sh 'docker-compose run --rm cypress --component'
+                    // sh 'docker-compose run --rm cypress --component'
                 }
             }
             post {
