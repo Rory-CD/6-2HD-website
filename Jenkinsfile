@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:lts-alpine'
-            args '-u jenkins'
+            args '-u root'
         }  // Use a Node.js image for testing
     }
 
