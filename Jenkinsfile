@@ -9,6 +9,7 @@ pipeline {
             steps {
                 sh 'npm install'
                 sh 'chmod +x ./node_modules/.bin/vite'
+                sh 'chmod +x ./node_modules/.bin/vitest'
             }
         }
         stage('Build') {
