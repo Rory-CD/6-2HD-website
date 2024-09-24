@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Dependencies') {
-            steps {
-                // Install project dependencies
-                sh 'npm install'
-            }
-        }
         stage('Build') {
             steps {
                 // Build Vue app
