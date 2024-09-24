@@ -1,22 +1,17 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:lts-alpine'
-            args '-u root'
-        }  // Use a Node.js image for testing
-    }
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                // Build docker image
-                echo "Building docker images..."
-                //sh 'docker build -t vue-image .'
-                script {
-                    // Build the Docker images using Docker Compose
-                    //sh 'docker-compose up --build -d vue-app'
-                    sh 'docker build -t my-vue-app .'
-                }
+                // Build Vue app
+                sh 'npm run build'
+            }
+        }
+        stage('Archive artifact') {
+            steps {
+                // Archive the build artifact
+                archiveArtifacts artifacts: 'dist/**', fingerprint: true
             }
         }
         stage('Test') {
