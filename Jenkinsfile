@@ -7,6 +7,8 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
+                sh 'npm cache clean --force'  // Clean npm cache
+                sh 'rm -rf node_modules/'     // Remove node_modules
                 sh 'npm install --legacy-peer-deps --unsafe-perm'
                 sh 'chmod -R 755 node_modules/'
                 // Confirm vitest/vite are installed
