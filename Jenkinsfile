@@ -97,7 +97,7 @@ pipeline {
     post {
         always {
             // Clean up after the build, remove images
-            sh 'docker-compose down --rmi all'
+            // sh 'docker-compose down --rmi all'
         }
     }
 }
