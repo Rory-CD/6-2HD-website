@@ -5,10 +5,15 @@ pipeline {
     }
 
     stages {
+        stage('Pre-Build') {
+            sh 'npm install'
+            sh 'chmod +x ./node_modules/.bin/vite'
+        }
         stage('Build') {
             steps {
                 // Build Vue app
                 sh 'npm run build'
+                //sh 'npx vite build'
             }
         }
         stage('Archive artifact') {
