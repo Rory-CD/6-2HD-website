@@ -17,8 +17,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Build Vue app
-                sh 'npm run build'
-                //sh 'npx vite build'
+                //sh 'npm run build'
+                sh 'npx vite build'
             }
         }
         stage('Archive artifact') {
