@@ -6,8 +6,10 @@ pipeline {
 
     stages {
         stage('Pre-Build') {
-            sh 'npm install'
-            sh 'chmod +x ./node_modules/.bin/vite'
+            steps {
+                sh 'npm install'
+                sh 'chmod +x ./node_modules/.bin/vite'
+            }
         }
         stage('Build') {
             steps {
