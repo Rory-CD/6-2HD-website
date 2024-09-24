@@ -7,9 +7,9 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                sh 'npm install --unsafe-perm'
-                //sh 'chmod +x ./node_modules/.bin/vite'
-                //sh 'chmod +x ./node_modules/.bin/vitest'
+                sh 'npm install'
+                sh 'chmod +x ./node_modules/.bin/vite'
+                sh 'chmod +x ./node_modules/.bin/vitest'
             }
         }
         stage('Build') {
