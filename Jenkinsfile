@@ -7,11 +7,11 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
-                sh 'chmod +x ./node_modules/.bin/vite'
-                sh 'chmod +x ./node_modules/.bin/vitest'
-                // Confirm vitest is installed
+                sh 'npm install --legacy-peer-deps --unsafe-perm'
+                sh 'chmod -R 755 node_modules/'
+                // Confirm vitest/vite are installed
                 sh 'ls node_modules/vitest'
+                sh 'ls node_modules/vite'
             }
         }
         stage('Build') {
