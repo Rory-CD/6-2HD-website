@@ -1,7 +1,6 @@
 pipeline {
-    agent any
-    environment {
-        COMPOSE_HTTP_TIMEOUT = '200'  // Set to a higher value, e.g., 200 seconds
+    agent {
+        docker { image 'node:lts-alpine' }  // Use a Node.js image for testing
     }
 
     stages {
