@@ -26,11 +26,11 @@ pipeline {
                 sh 'npm run build'
                 //sh 'npx vite build'
             }
-        }
-        stage('Archive artifact') {
-            steps {
-                // Archive the build artifact
-                archiveArtifacts artifacts: 'dist/**', fingerprint: true
+            post {
+                always {
+                    // Archive the build artifact
+                    archiveArtifacts artifacts: 'dist/**', fingerprint: true
+                }
             }
         }
         stage('Test') {
@@ -38,6 +38,12 @@ pipeline {
                 script {
                     // Test with Vitest
                     sh 'npx vitest run'
+                }
+            }
+            post {
+                always {
+                    // Archive test results
+                    archiveArtifacts artifacts: '**/test-results.xml', fingerprint: true
                 }
             }
         }
@@ -67,25 +73,23 @@ pipeline {
             }
         }
         stage('Reporting') {
-            post {
-                always {
-                    // Send email notification
-                    emailext(
-                        to: 'rory.doug@gmail.com',
-                        subject: "Build and Test Results: ${currentBuild.fullDisplayName}",
-                        body: """
-                        The test results are as follows:
+            steps {
+                // Send email notification
+                emailext(
+                    to: 'rory.doug@gmail.com',
+                    subject: "Build and Test Results: ${currentBuild.fullDisplayName}",
+                    body: """
+                    The test results are as follows:
 
-                        ${currentBuild.currentResult}
+                    ${currentBuild.currentResult}
 
-                        Check the details in Jenkins: ${env.BUILD_URL}
+                    Check the details in Jenkins: ${env.BUILD_URL}
 
-                        For SonarQube analysis results, visit:
-                        ${env.SONARQUBE_URL} // Define this variable as needed in your pipeline
-                        """,
-                        attachLog: true // Attach the console output log
-                    )
-                }
+                    For SonarQube analysis results, visit:
+                    ${env.SONARQUBE_URL} // Define this variable as needed in your pipeline
+                    """,
+                    attachLog: true // Attach the console output log
+                )
             }
         }
     }
