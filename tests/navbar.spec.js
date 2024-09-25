@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Navbar from '@/Navbar.vue'
+import Navbar from '@/components/Navbar.vue'
 
 describe('Navbar', () => {
     const expectedLinks = ['ACCOMMODATION', 'EAT/DRINK', 'EVENTS', 'AMENITIES', 'OFFERS', 'CONTACT'];

@@ -23,6 +23,7 @@ describe('Contact form', () => {
 
         // Simulate an event
         const event = {
+            preventDefault: vi.fn(),
             target: {
                 name: nameInput.element,
                 email: emailInput.element,
@@ -43,6 +44,7 @@ describe('Contact form', () => {
         
         // Simulate an event
         const event = {
+            preventDefault: vi.fn(),
             target: {
                 name: nameInput.element,
                 email: emailInput.element,
