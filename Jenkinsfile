@@ -17,11 +17,11 @@ pipeline {
                 // Build Vue app
                 sh 'npm run build'
             }
-        }
-        stage('Archive artifact') {
-            steps {
-                // Archive the build artifact
-                archiveArtifacts artifacts: 'dist/**', fingerprint: true
+            post {
+                always {
+                    // Archive the build artifact
+                    archiveArtifacts artifacts: 'dist/**', fingerprint: true
+                }
             }
         }
         stage('Test') {
