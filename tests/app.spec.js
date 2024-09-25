@@ -1,12 +1,12 @@
-import { shallowMount } from '@vue/test-utils'
-import Navbar from '@/components/Navbar.vue'
+import { mount } from '@vue/test-utils'
+import App from '@/App.vue'
 
 describe('Navbar', () => {
     const expectedLinks = ['ACCOMMODATION', 'EAT/DRINK', 'EVENTS', 'AMENITIES', 'OFFERS', 'CONTACT'];
 
     it('displays all links', () => {
         // Mount the component
-        const wrapper = shallowMount(Navbar);
+        const wrapper = mount(App);
 
         // Find all the nav-link elements
         const navLinks = wrapper.findAll('.nav-link');
