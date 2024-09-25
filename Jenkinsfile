@@ -4,6 +4,11 @@ pipeline {
         nodejs "NodeJS"
     }
 
+    // Environment variables
+    environment {
+        SONARQUBE_URL = 'http://localhost:9000/dashboard?id=Vue-Webapp'
+    }
+
     stages {
         stage('Install dependencies') {
             steps {
@@ -61,24 +66,26 @@ pipeline {
                 echo "monitor with datadog"
             }
         }
-        post {
-            always {
-                // Archive test results (if applicable)
-                archiveArtifacts artifacts: '**/test-results.xml', fingerprint: true
+        stage('Reporting') {
+            post {
+                always {
+                    // Send email notification
+                    emailext(
+                        to: 'rory.doug@gmail.com',
+                        subject: "Build and Test Results: ${currentBuild.fullDisplayName}",
+                        body: """
+                        The test results are as follows:
 
-                // Send email notification
-                emailext(
-                    to: 'your-email@example.com',
-                    subject: "Test Results: ${currentBuild.fullDisplayName}",
-                    body: """
-                    The test results are as follows:
+                        ${currentBuild.currentResult}
 
-                    ${currentBuild.currentResult}
+                        Check the details in Jenkins: ${env.BUILD_URL}
 
-                    Check the details in Jenkins: ${env.BUILD_URL}
-                    """,
-                    attachLog: true // Attach the console output log
-                )
+                        For SonarQube analysis results, visit:
+                        ${env.SONARQUBE_URL} // Define this variable as needed in your pipeline
+                        """,
+                        attachLog: true // Attach the console output log
+                    )
+                }
             }
         }
     }
