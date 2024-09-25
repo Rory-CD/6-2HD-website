@@ -61,7 +61,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarQube Vue Webapp'
+                    def scannerHome = tool 'SonarQube Scanner'
                     // Access the SonarQube token stored in Jenkins credentials
                     def sonarqubeToken = credentials('SonarQube-token')
                     withSonarQubeEnv('SonarQube Server') {
