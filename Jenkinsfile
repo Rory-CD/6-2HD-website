@@ -5,18 +5,13 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm // Checks out the source code from your repository
-            }
-        }
         stage('Install dependencies') {
             steps {
                 sh 'npm install --unsafe-perm'
                 sh 'npm install vite --save-dev'
+                sh 'npm install rollup --save-dev'
                 sh 'chmod -R 755 node_modules/'
                 // Confirm vitest/vite are installed
-                sh 'ls node_modules/vitest'
                 sh 'ls node_modules/vite'
             }
         }
