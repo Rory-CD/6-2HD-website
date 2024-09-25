@@ -35,24 +35,6 @@ pipeline {
                     sh 'npx vitest run'
                 }
             }
-            post {
-                success {
-                    emailext (
-                        to: "rory.doug@gmail.com",
-                        subject: "Test Status: Successful",
-                        body: "Test was successful!",
-                        attachLog: true
-                    )
-                }
-                failure {
-                    emailext (
-                        to: "rory.doug@gmail.com",
-                        subject: "Test Status: Failed",
-                        body: "Test failed!",
-                        attachLog: true
-                    )
-                }
-            }
         }
         stage('SonarQube Analysis') {
             steps {
@@ -64,56 +46,40 @@ pipeline {
                 }
             }
         }
-        stage('Security Scan') {
+        stage('Deploy') {
             steps {
-                echo "scan with OWASP ZAP"
-            }
-            post {
-                success {
-                    emailext (
-                        to: "rory.doug@gmail.com",
-                        subject: "Security Scan Status: Successful",
-                        body: "Scan was successful!",
-                        attachLog: true
-                    )
-                }
-                failure {
-                    emailext (
-                        to: "rory.doug@gmail.com",
-                        subject: "Security Scan Status: Failed",
-                        body: "Scan failed!",
-                        attachLog: true
-                    )
-                }
+                echo "deploy to staging server"
             }
         }
-        stage('Deploy to GitHub Pages') {
+        stage('Release') {
             steps {
-                script {
-                    // Install gh-pages globally in the Jenkins environment
-                    sh 'npm install -g gh-pages'
-                    
-                    // Deploy the built app to GitHub Pages
-                    sh 'gh-pages -d dist'
-                }
+                echo "release with Octopus Deploy"
             }
         }
-        stage('Integration Tests on Staging') {
+        stage('Monitoring and Alerting') {
             steps {
-                echo "test with Selenium"
+                echo "monitor with datadog"
             }
         }
-        stage('Deploy to Production') {
-            steps {
-                echo "deploy the code to AWS EC2"
+        post {
+            always {
+                // Archive test results (if applicable)
+                archiveArtifacts artifacts: '**/test-results.xml', fingerprint: true
+
+                // Send email notification
+                emailext(
+                    to: 'your-email@example.com',
+                    subject: "Test Results: ${currentBuild.fullDisplayName}",
+                    body: """
+                    The test results are as follows:
+
+                    ${currentBuild.currentResult}
+
+                    Check the details in Jenkins: ${env.BUILD_URL}
+                    """,
+                    attachLog: true // Attach the console output log
+                )
             }
         }
     }
-
-    // post {
-    //     always {
-    //         // Clean up after the build, remove images
-    //         // sh 'docker-compose down --rmi all'
-    //     }
-    // }
 }
