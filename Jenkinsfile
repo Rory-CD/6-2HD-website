@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     tools {
         nodejs "NodeJS"
     }
@@ -7,8 +8,11 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
+                // Clean up node modules
                 sh 'rm -rf node_modules'
+                // Install dependencies
                 sh 'npm install'
+                // Change permissions for node modules
                 sh 'chmod -R 755 node_modules/'
             }
         }
@@ -32,12 +36,14 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube Analysis') {
+        stage('Code Quality Analysis') {
             steps {
                 script {
+                    // Connect with scanner plugin
                     def scannerHome = tool 'SonarQube Scanner';
+                    // Set up environment variables and run scanner to connect with server
                     withSonarQubeEnv() {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
