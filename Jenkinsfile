@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                sh 'npm install --unsafe-perm'
+                sh 'npm install'
                 sh 'chmod -R 755 node_modules/'
                 // Confirm vitest/vite are installed
                 sh 'ls -la node_modules/vite'
@@ -29,14 +29,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Run Cypress tests
-                // echo "Testing with Cypress..."
-                // sh 'npx cypress run'
                 script {
-                    //sh 'npm run test:unit'
+                    // Test with Vitest
                     sh 'npx vitest run'
-                    // Run Cypress tests
-                    // sh 'docker-compose run --rm cypress --component'
                 }
             }
             post {
