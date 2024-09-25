@@ -5,13 +5,6 @@ pipeline {
     }
 
     stages {
-        stage('Cleanup') {
-            steps {
-                script {
-                    cleanWs() // This cleans the workspace before any build steps
-                }
-            }
-        }
         stage('Install dependencies') {
             steps {
                 sh 'npm install --unsafe-perm'
