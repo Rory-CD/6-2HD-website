@@ -54,25 +54,6 @@ pipeline {
                 }
             }
         }
-        // stage('Code Analysis') {
-        //     steps {
-        //         script {
-        //             def scannerHome = tool 'SonarQube Scanner'
-        //             // Access the SonarQube token stored in Jenkins credentials
-        //             def sonarqubeToken = credentials('SonarQube-token')
-                    
-        //             withSonarQubeEnv('SonarQube Server') {
-        //                 sh """
-        //                 #!/bin/bash
-        //                 bash ${scannerHome}/bin/sonar-scanner \
-        //                     -Dsonar.projectKey=Vue-Webapp \
-        //                     -Dsonar.sources=. \
-        //                     -Dsonar.login=${sonarqubeToken}
-        //                 """
-        //             }
-        //         }
-        //     }
-        // }
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -83,12 +64,6 @@ pipeline {
                 }
             }
         }
-        // stage('Quality Gate') {
-        //     steps {
-        //         // Add steps to wait for quality gate status
-        //         waitForQualityGate abortPipeline: true
-        //     }
-        // }
         stage('Security Scan') {
             steps {
                 echo "scan with OWASP ZAP"
@@ -112,9 +87,15 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Staging') {
+        stage('Deploy to GitHub Pages') {
             steps {
-                echo "deploy the application to AWS EC2"
+                script {
+                    // Install gh-pages globally in the Jenkins environment
+                    sh 'npm install -g gh-pages'
+                    
+                    // Deploy the built app to GitHub Pages
+                    sh 'gh-pages -d dist'
+                }
             }
         }
         stage('Integration Tests on Staging') {
