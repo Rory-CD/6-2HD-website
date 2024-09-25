@@ -4,14 +4,14 @@ pipeline {
         nodejs "NodeJS"
     }
 
-    stage('Cleanup') {
-        steps {
-            script {
-                cleanWs() // This cleans the workspace before any build steps
+    stages {
+        stage('Cleanup') {
+            steps {
+                script {
+                    cleanWs() // This cleans the workspace before any build steps
+                }
             }
         }
-    }
-    stages {
         stage('Install dependencies') {
             steps {
                 sh 'npm install --unsafe-perm'
