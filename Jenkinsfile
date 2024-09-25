@@ -5,11 +5,6 @@ pipeline {
     }
 
     stages {
-        stage('Cleanup') {
-            steps {
-                cleanWs() // Clean the workspace before any build steps
-            }
-        }
         stage('Checkout') {
             steps {
                 checkout scm // Checks out the source code from your repository
@@ -18,6 +13,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 sh 'npm install --unsafe-perm'
+                sh 'npm install vite --save-dev'
                 sh 'chmod -R 755 node_modules/'
                 // Confirm vitest/vite are installed
                 sh 'ls node_modules/vitest'
