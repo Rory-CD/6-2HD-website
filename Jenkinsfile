@@ -40,12 +40,6 @@ pipeline {
                     sh 'npx vitest run'
                 }
             }
-            post {
-                always {
-                    // Archive test results
-                    archiveArtifacts artifacts: '**/test-results.xml', fingerprint: true
-                }
-            }
         }
         stage('SonarQube Analysis') {
             steps {
