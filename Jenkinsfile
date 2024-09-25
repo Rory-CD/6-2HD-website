@@ -5,6 +5,16 @@ pipeline {
     }
 
     stages {
+        stage('Cleanup') {
+            steps {
+                cleanWs() // Clean the workspace before any build steps
+            }
+        }
+        stage('Checkout') {
+            steps {
+                checkout scm // Checks out the source code from your repository
+            }
+        }
         stage('Install dependencies') {
             steps {
                 sh 'npm install --unsafe-perm'
