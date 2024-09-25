@@ -14,6 +14,11 @@ pipeline {
                 sh 'ls node_modules/vite'
             }
         }
+        stage('Check Dependencies') {
+            steps {
+                sh 'ls -la node_modules/vite'
+            }
+        }
         stage('Build') {
             steps {
                 // Build Vue app
