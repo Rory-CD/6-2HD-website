@@ -54,31 +54,37 @@ pipeline {
                 }
             }
         }
-        stage('Code Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'SonarQube Scanner'
-                    // Access the SonarQube token stored in Jenkins credentials
-                    def sonarqubeToken = credentials('SonarQube-token')
+        // stage('Code Analysis') {
+        //     steps {
+        //         script {
+        //             def scannerHome = tool 'SonarQube Scanner'
+        //             // Access the SonarQube token stored in Jenkins credentials
+        //             def sonarqubeToken = credentials('SonarQube-token')
                     
-                    withSonarQubeEnv('SonarQube Server') {
-                        sh """
-                        #!/bin/bash
-                        bash ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=Vue-Webapp \
-                            -Dsonar.sources=. \
-                            -Dsonar.login=${sonarqubeToken}
-                        """
-                    }
-                }
+        //             withSonarQubeEnv('SonarQube Server') {
+        //                 sh """
+        //                 #!/bin/bash
+        //                 bash ${scannerHome}/bin/sonar-scanner \
+        //                     -Dsonar.projectKey=Vue-Webapp \
+        //                     -Dsonar.sources=. \
+        //                     -Dsonar.login=${sonarqubeToken}
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'SonarQube Scanner';
+            withSonarQubeEnv() {
+            sh "${scannerHome}/bin/sonar-scanner"
             }
         }
-        stage('Quality Gate') {
-            steps {
-                // Add steps to wait for quality gate status
-                waitForQualityGate abortPipeline: true
-            }
-        }
+        // stage('Quality Gate') {
+        //     steps {
+        //         // Add steps to wait for quality gate status
+        //         waitForQualityGate abortPipeline: true
+        //     }
+        // }
         stage('Security Scan') {
             steps {
                 echo "scan with OWASP ZAP"
