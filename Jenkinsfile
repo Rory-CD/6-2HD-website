@@ -7,6 +7,7 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
+                sh 'rm -rf node_modules'
                 sh 'npm install'
                 sh 'chmod -R 755 node_modules/'
                 // Confirm vitest/vite are installed
