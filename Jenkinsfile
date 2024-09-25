@@ -64,8 +64,9 @@ pipeline {
                     def scannerHome = tool 'SonarQube Scanner'
                     // Access the SonarQube token stored in Jenkins credentials
                     def sonarqubeToken = credentials('SonarQube-token')
+                    
                     withSonarQubeEnv('SonarQube Server') {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Vue-Webapp -Dsonar.sources=. -Dsonar.host.url=http://8a2d59a856ea5f70392412a3bdf98d3ef556d2c51ca64295e2d012050ebaf941:9000 -Dsonar.login=${sonarqubeToken}"
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Vue-Webapp -Dsonar.sources=. -Dsonar.login=${sonarqubeToken}"
                     }
                 }
             }
