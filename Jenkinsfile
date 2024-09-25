@@ -4,6 +4,13 @@ pipeline {
         nodejs "NodeJS"
     }
 
+    stage('Cleanup') {
+        steps {
+            script {
+                cleanWs() // This cleans the workspace before any build steps
+            }
+        }
+    }
     stages {
         stage('Install dependencies') {
             steps {
@@ -66,7 +73,12 @@ pipeline {
                     def sonarqubeToken = credentials('SonarQube-token')
                     
                     withSonarQubeEnv('SonarQube Server') {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Vue-Webapp -Dsonar.sources=. -Dsonar.login=${sonarqubeToken}"
+                        sh """
+                        bash ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=Vue-Webapp \
+                            -Dsonar.sources=. \
+                            -Dsonar.login=${sonarqubeToken}
+                        """
                     }
                 }
             }
