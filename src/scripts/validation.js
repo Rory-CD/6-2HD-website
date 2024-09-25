@@ -1,4 +1,4 @@
-function validateContactForm(event) {
+export function validateContactForm(event) {
     
     // Prevent form submission
     event.preventDefault();
