@@ -3,14 +3,9 @@ export default function validateContactForm(event) {
     // Prevent form submission
     event.preventDefault();
 
-    // Reset validation messages/styles (for when multiple submissions occur in a row)
-    const form = document.getElementById("contact-form");
-    resetValidation(form);
-    
-    // Get form values
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
+    const name = event.target.name.value.trim();
+    const email = event.target.email.value.trim();
+    const message = event.target.message.value.trim();
 
     // Validation
     let isValid = true;
