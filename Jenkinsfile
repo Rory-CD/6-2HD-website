@@ -63,6 +63,7 @@ pipeline {
                     
                     withSonarQubeEnv('SonarQube Server') {
                         sh """
+                        #!/bin/bash
                         bash ${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=Vue-Webapp \
                             -Dsonar.sources=. \
