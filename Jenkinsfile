@@ -10,19 +10,15 @@ pipeline {
                 sh 'npm install --unsafe-perm'
                 sh 'chmod -R 755 node_modules/'
                 // Confirm vitest/vite are installed
-                sh 'ls node_modules/vite'
-            }
-        }
-        stage('Check Dependencies') {
-            steps {
                 sh 'ls -la node_modules/vite'
+                sh 'npm list vite' // Check installed version of Vite
             }
         }
         stage('Build') {
             steps {
                 // Build Vue app
-                //sh 'npm run build'
-                sh 'npx vite build'
+                sh 'npm run build'
+                //sh 'npx vite build'
             }
         }
         stage('Archive artifact') {
